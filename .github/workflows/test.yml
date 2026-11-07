@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  workflow-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check Shell and JavaScript syntax
+        run: |
+          bash -n scripts/*.sh tests/*.sh
+          node --input-type=module --check < scripts/ui_tactile_kit.js
+
+      - name: Check Markdown links
+        run: bash tests/check_markdown_links.sh
+
+      - name: Run isolated workflow regression tests
+        run: bash tests/test_project_aware_workflow.sh
