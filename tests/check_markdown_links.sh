@@ -7,6 +7,7 @@ cd "$ROOT"
 
 missing=0
 while IFS= read -r doc; do
+    doc_dir=$(dirname "$doc")
     fences=$(grep -c '^```' "$doc" || true)
     if [ $((fences % 2)) -ne 0 ]; then
         echo "FAIL: unmatched fenced code block in $doc" >&2
@@ -19,7 +20,7 @@ while IFS= read -r doc; do
         esac
         clean=${target%%#*}
         [ -z "$clean" ] && continue
-        if [ ! -e "$clean" ]; then
+        if [ ! -e "${doc_dir}/${clean}" ]; then
             echo "FAIL: $doc links to missing path: $target" >&2
             missing=1
         fi

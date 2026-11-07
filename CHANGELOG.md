@@ -2,6 +2,17 @@
 
 All notable changes to WEED PLAN.MD are documented here. This project uses semantic versioning for its public releases.
 
+## [Unreleased]
+
+### Added
+
+- A purpose-based classification map with a self-contained drag-and-drop pack for starting a new project.
+- Separate entry points for maintenance tests, open-source governance, research records, and GitHub automation.
+
+### Fixed
+
+- Markdown link checks now resolve local links relative to the document that contains them.
+
 ## [0.1.0] - 2026-11-07
 
 Initial public release.
